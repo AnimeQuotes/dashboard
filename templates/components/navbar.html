@@ -1,0 +1,65 @@
+<nav class="navbar is-link mb-4">
+    <a role="button" class="navbar-burger" data-target="navbar-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </a>
+
+    <div id="navbar-menu" class="navbar-menu">
+        {% if g.user %}
+            <div class="navbar-start">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">View</a>
+
+                    <div class="navbar-dropdown">
+                        {% with url = url_for('characters.list_characters') %}
+                            <a class="navbar-item {{ 'is-active' if request.path == url }}" href="{{ url }}">Characters</a>
+                        {% endwith %}
+
+                        {% if g.user.is_admin %}
+                            <hr class="navbar-divider">
+                            {% with url = url_for('users.list_users') %}
+                                <a class="navbar-item {{ 'is-active' if request.path == url }}" href="{{ url }}">Users</a>
+                            {% endwith %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">Add</a>
+
+                    <div class="navbar-dropdown">
+                        {% with url = url_for('characters.add_character') %}
+                            <a class="navbar-item {{ 'is-active' if request.path == url }}" href="{{ url }}">Character</a>
+                        {% endwith %}
+
+                        {% if g.user.is_admin %}
+                            <hr class="navbar-divider">
+                            {% with url = url_for('users.add_user') %}
+                                <a class="navbar-item {{ 'is-active' if request.path == url }}" href="{{ url }}">User</a>
+                            {% endwith %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="navbar-end">
+            {% if g.user %}
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">{{ g.user.username }}</a>
+
+                    <div class="navbar-dropdown is-right">
+                        {% with url = url_for('settings.change_password') %}
+                            <a class="navbar-item {{ 'is-active' if request.path == url }}" href="{{ url }}">Change Password</a>
+                        {% endwith %}
+                        <hr class="navbar-divider">
+                        <a class="navbar-item" href="{{ url_for('auth.logout') }}">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a class="navbar-item" href="{{ url_for('auth.login') }}">Login</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>

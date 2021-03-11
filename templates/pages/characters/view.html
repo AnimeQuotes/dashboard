@@ -1,0 +1,109 @@
+{% extends 'layout.html' %}
+{% block title %}{{ character.name }}{% endblock %}
+{% block content %}
+<div class="container is-fluid">
+    <nav class="level is-mobile">
+        <div class="level-left">
+            <div class="level-item">
+                <p class="title is-2">Character</p>
+            </div>
+        </div>
+
+        {% if g.user.is_admin or character.author == g.user %}
+            <div class="level-right">
+                <div class="level-item">
+                    <a class="button is-danger" href="{{ url_for('.delete_character', character_id=character.id) }}">Delete</a>
+                </div>
+            </div>
+        {% endif %}
+    </nav>
+
+    <div class="block">
+        <p class="title is-6 is-uppercase has-text-weight-bold">Name</p>
+        <p class="subtitle is-4">{{ character.name }}</p>
+    </div>
+
+    <div class="block">
+        <p class="title is-6 is-uppercase has-text-weight-bold">Anime</p>
+        <p class="subtitle is-4">{{ character.anime }}</p>
+    </div>
+
+    <div class="block is-hidden">
+        <p class="title is-6 is-uppercase has-text-weight-bold">Added by</p>
+        <p class="subtitle is-4">{{ character.author.username }}</p>
+    </div>
+
+    <div class="block is-hidden">
+        <p class="title is-6 is-uppercase has-text-weight-bold">Added at</p>
+        <p class="subtitle is-4">{{ character.added | format_datetime }}</p>
+    </div>
+
+    <hr class="has-background-link-dark">
+
+    <nav class="level mt-6 is-mobile">
+        <div class="level-left">
+            <div class="level-item">
+                <p class="title is-3">Images <span class="has-text-link-dark">({{ images.count() }})</span></p>
+            </div>
+        </div>
+
+        <div class="level-right">
+            <div class="level-item">
+                <button class="button is-success" onclick="openModal(this, 'upload')">Add</button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="images" class="has-text-centered">
+        {% for image in images %}
+            <img src="{{ url_for('.display_image', image_id=image.id) }}" loading="lazy" data-id="{{ image.id }}" onclick="openModal(this, 'preview')">
+        {% endfor %}
+    </div>
+
+    <div id="preview" class="modal">
+        <div class="modal-background" onclick="closeModal(this)"></div>
+        <div class="modal-card">
+            <section class="modal-card-body">
+                <img src="">
+            </section>
+
+            <footer class="modal-card-foot">
+                <a class="button is-danger" href="{{ url_for('.delete_image', image_id=1) }}">Delete</a>
+            </footer>
+            <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+    </div>
+
+    <div id="upload" class="modal">
+        <div class="modal-background" onclick="closeModal(this)"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Preview</p>
+                <button class="delete" onclick="closeModal(this)"></button>
+            </header>
+
+            <section class="modal-card-body">
+                <img id="upload-preview" src="">
+            </section>
+
+            <footer class="modal-card-foot">
+                <form id="form" method="post" enctype="multipart/form-data" action="{{ url_for('.upload_image', character_id=character.id) }}">
+                    <div class="file">
+                        <label class="file-label">
+                            <input name="image" class="file-input" type="file" oninput="displayUploadPreview(this)" required>
+
+                            <span class="file-cta">
+                                <span class="file-label">
+                                    Browse files
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                </form>
+
+                <button class="button is-success ml-2" form="form">Upload</button>
+            </footer>
+        </div>
+    </div>
+</div>
+{% endblock %}

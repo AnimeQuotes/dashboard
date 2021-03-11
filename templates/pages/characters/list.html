@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block title %}Characters{% endblock %}
+{% block content %}
+<div class="container">
+    <p class="title is-2">Characters</p>
+
+    <table class="table is-striped is-hoverable is-fullwidth">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Anime</th>
+                <th>Added at</th>
+                <th>Added by</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for character in characters %}
+                <tr>
+                    <td><a href="{{ url_for('.view_character', character_id=character.id) }}">{{ character.name }}</a></td>
+                    <td>{{ character.anime }}</td>
+                    <td>{{ character.added | format_datetime }}</td>
+                    <td>{{ character.author.username }}</td>
+                    {% if g.user.is_admin or character.author == g.user %}
+                        <td><a href="{{ url_for('.delete_character', character_id=character.id) }}">Delete</a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

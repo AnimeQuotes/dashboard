@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block title %}Add Character{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="box">
+        <p class="title">Add Character</p>
+
+        <form method="post">
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                    <input name="name" class="input" placeholder="Tooru" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Anime</label>
+                <div class="control">
+                    <input name="anime" class="input" placeholder="Kobayashi-san Chi no Maid Dragon" required>
+                </div>
+            </div>
+
+            <div class="control">
+                <button class="button is-success">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

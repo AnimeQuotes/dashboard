@@ -1,0 +1,11 @@
+#images img {
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px gray;
+    height: 250px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#preview[src=""] {
+    display: none
+}

@@ -1,0 +1,7 @@
+argon2-cffi==20.1.0
+babel==2.9.0
+dnspython==2.1.0
+Flask==1.1.2
+fonttools==4.21.1
+mongoengine==0.23.0
+Pillow==8.1.2

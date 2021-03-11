@@ -1,0 +1,20 @@
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="modal is-active">
+            <div class="modal-background" onclick="destroyModal(this)"></div>
+            <div class="modal-content">
+                <article class="message is-warning">
+                    <div class="message-header">
+                        <p>Alert</p>
+                        <button class="delete" onclick="destroyModal(this)"></button>
+                    </div>
+                    <div class="message-body">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </div>
+                </article>
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}

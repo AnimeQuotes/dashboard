@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block title %}Users{% endblock %}
+{% block content %}
+<div class="container">
+    <p class="title is-2">Users</p>
+
+    <table class="table is-striped is-hoverable is-fullwidth">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Last seen</th>
+                <th>Created at</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.last_seen | format_timedelta }}</td>
+                <td>{{ user.created | format_datetime }}</td>
+                <td><a href="{{ url_for('.delete_user', user_id=user.id) }}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+# ide
+.idea/
+
+# python
+__pycache__/
+
+# environment
+venv/
+.env
+
+# generated files
+tmp/
+storage/

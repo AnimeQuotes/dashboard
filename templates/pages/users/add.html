@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block title %}Add User{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="box">
+        <p class="title">Add User</p>
+
+        <form method="post">
+            <div class="field">
+                <label class="label">Username</label>
+                <div class="control">
+                    <input name="username" class="input">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Password</label>
+                <div class="control">
+                    <input name="password" class="input" type="password">
+                </div>
+            </div>
+
+            <div class="control">
+                <button class="button is-success">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
