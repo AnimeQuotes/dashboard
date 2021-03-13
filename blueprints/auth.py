@@ -37,7 +37,6 @@ def login():
 
         return redirect(url_for("characters.list_characters"))
 
-    session.clear()
     return render_template("pages/auth/login.html")
 
 
